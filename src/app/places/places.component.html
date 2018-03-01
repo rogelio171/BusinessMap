@@ -1,5 +1,5 @@
-<agm-map [latitude]="lat" [longitude]="lng">
-    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+<agm-map [latitude]="20.6116249" [longitude]="-103.4109032" [zoom]="14">
+    <agm-marker *ngFor="let place of places" [latitude]="place.lat" [longitude]="place.lng"></agm-marker>
 </agm-map>
 
 <hr>
@@ -8,11 +8,17 @@
     <div class="row">
         <div class="col-md-8">
             <h2>Near Places</h2>
+            <a class="btn btn-primary" routerLink="/create/new" role="button">Create new Business</a>
             <ul class="list-group">
                 <ng-container *ngFor="let place of places">
-                    <a routerLink="/detail/{{place.id}}" [queryParams]="{action:'view', referer: 'google'}">
-                        <li class="list-group-item" *ngIf="place.active">{{place.name}}</li>
-                    </a>
+                    <li class="list-group-item">
+                        <a routerLink="/create/{{place.id}}">
+                            <h3>{{place.name}}</h3>
+                        </a>
+                        <br>
+                        <small>Created on: {{place.id | date:'medium' | uppercase}}</small>
+                        <p [innerHtml]="place.description | linkifyStr"></p>
+                    </li>
                 </ng-container>
             </ul>
         </div>
