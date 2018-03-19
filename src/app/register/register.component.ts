@@ -7,13 +7,12 @@ import { AuthorizationService } from '../services/authorization.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  registerMock:any ={}
+  registerContainer:any ={}
 
   constructor(private authorizationService: AuthorizationService) {}
   
   register() {
-    debugger;
-    this.authorizationService.register(this.registerMock.email, this.registerMock.pass);
+    this.authorizationService.register(this.registerContainer.email, this.registerContainer.pass);
   }
 
 }

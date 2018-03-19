@@ -14,12 +14,17 @@
                 <a class="nav-link" routerLink="/contact">Contact</a>
             </li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right" *ngIf="!loggedIn">
             <li>
                 <a class="nav-link" routerLink="/login">Login</a>
             </li>
             <li>
                 <a class="nav-link" routerLink="/register">Register</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" *ngIf="loggedIn">
+            <li>
+                <a class="nav-link" (click)="logout()">Logout</a>
             </li>
         </ul>
     </div>

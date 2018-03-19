@@ -1,13 +1,14 @@
 <form>
     <div class="form-group col-md-4 offset-md-4">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <label class="font-weight-bold" for="inputEmail">Email</label>
+        <input type="email" class="form-control" id="inputEmail" [(ngModel)]="loginContainer.email" [ngModelOptions]="{standalone: true}" aria-describedby="emailHelp" placeholder="Enter email">
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         <br>
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        <br>
-        <button class="btn btn-primary btn-block">Login</button>
-        <button class="btn btn-primary btn-block">Cancel</button>
+        <label class="font-weight-bold" for="inputPassword">Password</label>
+        <input type="password" class="form-control" id="inputPassword" [(ngModel)]="this.loginContainer.pass" [ngModelOptions]="{standalone: true}" placeholder="Password">
+        <hr>
+        <button class="btn btn-warning btn-block" (click)="login()">Login</button>
+        <button class="btn btn-primary btn-block" (click)="facebookLogin()">Login with Facebook</button>
+        <button class="btn btn-default btn-block">Cancel</button>
     </div>
 </form>

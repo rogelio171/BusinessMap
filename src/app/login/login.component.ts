@@ -8,9 +8,18 @@ import { AuthorizationService } from '../services/authorization.service';
 })
 export class LoginComponent {
 
+  loginContainer:any ={}
+
   constructor(private authorizationService: AuthorizationService) { 
-    this.authorizationService.login('email', 'pass');
+    
   }
 
+  login() {
+    this.authorizationService.login(this.loginContainer.email, this.loginContainer.pass);
+  }
+
+  facebookLogin() {
+    this.authorizationService.facebookLogin();
+  }
 
 }
