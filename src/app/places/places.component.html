@@ -22,8 +22,16 @@
                 </ng-container>
             </ul>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" [@animableContainer]="state">
             <h2>Favorites</h2>
+            <ng-container *ngFor="let place of places">
+                <div class="bg-dark padding" *ngIf="place.plan == 'Paid'">
+                    <a routerLink="/create/{{place.id}}">
+                        <h3 class="text-white">{{place.name}}</h3>
+                        <p class="text-muted" [innerHtml]="place.description | linkifyStr"></p>
+                    </a>
+                </div>
+            </ng-container>
         </div>
     </div>
 </div>
