@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { PlacesService } from '../services/places.service';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import 'rxjs/Rx';
+import { FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-create',
@@ -10,8 +15,10 @@ import { ActivatedRoute } from '@angular/router';
 export class CreateComponent {
   place: any = {};
   id: any = null;
+  results$: Observable<any>;
+  private searchField: FormControl;
 
-  constructor(private placeServices: PlacesService, private route: ActivatedRoute) {
+  constructor(private placeServices: PlacesService, private route: ActivatedRoute, private http: HttpClient) {
     this.id = this.route.snapshot.params['id'];
     if (this.id != 'new') {
       this.placeServices.getPlace(this.id)
@@ -20,6 +27,12 @@ export class CreateComponent {
           this.place = place;
         })
     }
+    const URL = 'https://maps.google.com/maps/api/geocode/json';
+    this.searchField = new FormControl();
+    this.results$ = this.searchField.valueChanges
+      .debounceTime(500)
+      .switchMap(query => this.http.get(`${URL}?address=${query}`))
+      .map(response => response['results']);
   }
 
   savePlace() {
@@ -29,8 +42,8 @@ export class CreateComponent {
       .subscribe(result => {
         this.place.lat = result['results'][0].geometry.location.lat;
         this.place.lng = result['results'][0].geometry.location.lng;
-        
-        if(this.id != 'new') {
+
+        if (this.id != 'new') {
           this.placeServices.editPlace(this.place);
           alert('Business edited')
         } else {
@@ -42,5 +55,11 @@ export class CreateComponent {
       });
   }
 
+  selectAddress(address) {
+    console.log(address);
+    this.place.street = address.address_components[1].long_name + ' ' + address.address_components[0].long_name;
+    this.place.city = address.address_components[4].long_name;
+    this.place.country = address.address_components[6].long_name;
+  }
 
 }

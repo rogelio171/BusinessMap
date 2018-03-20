@@ -56,4 +56,9 @@ export class AuthorizationService {
         this.angularFireAuth.auth.signOut();
         alert('Session closed.')
     }
+
+    public getUser() {
+        return this.angularFireAuth.auth;
+    }
+
 }

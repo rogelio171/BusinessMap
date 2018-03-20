@@ -23,6 +23,9 @@
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf="loggedIn">
+            <li *ngIf="loggedUser">
+                <a class="nav-link">{{loggedUser}}</a>
+            </li>
             <li>
                 <a class="nav-link" (click)="logout()">Logout</a>
             </li>

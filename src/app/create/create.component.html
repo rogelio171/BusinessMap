@@ -1,5 +1,5 @@
 <div class="card-header">
-    <a routerLink="/places">Places</a>/Create
+    <a class="font-weight-bold" routerLink="/places">Places</a> / Create
 </div>
 
 <div class="container">
@@ -19,6 +19,17 @@
     <input type="text" class="form-control" [(ngModel)]="place.plan" />
     <br>
     <h3>Address</h3>
+    <div class="card">
+        <div class="card-header">
+            <form>
+                <label>Search address</label>
+                <input [formControl]="searchField" class="form-control">
+            </form>
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let result of results$ | async" (click)="selectAddress(result)">{{result.formatted_address}}</li>
+            </ul>
+        </div>
+    </div>
     <br>
     <label>Street address</label>
     <input type="text" class="form-control" [(ngModel)]="place.street" />
@@ -29,7 +40,7 @@
     <label>Country</label>
     <input type="text" class="form-control" [(ngModel)]="place.country" />
     <hr>
-    <a class="btn btn-primary" role="button" (click)="savePlace()">Submit</a>
+    <a class="btn btn-primary text-white" role="button" (click)="savePlace()">Submit</a>
     <a class="btn btn-light" routerLink="/places" role="button">Cancel</a>
 
 </div>
